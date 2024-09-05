@@ -1,0 +1,39 @@
+class Solution {
+public:
+    vector<int> missingRolls(vector<int>& rolls, int mean, int n) {
+      vector<int>ans;
+        int sum=0;
+        for(int i=0;i<rolls.size();i++)
+            sum+=rolls[i];
+        int r= (((rolls.size()+n)*mean)-sum);
+        cout<<sum<<" "<<r<<" "<<rolls.size();
+        if(r>6*n||r<=0 || r<n)
+            return ans;
+        else
+        {
+            int div= r/n;
+            int remi= r%n;
+            int k=0;
+            if(remi!=0)
+            {
+                    for(int i=0;i<n;i++)
+                {
+                    if(k<remi)
+                    ans.push_back(div+1);
+                    else
+                    ans.push_back(div);
+                    k++;
+                }
+            }
+            else
+            {
+                for(int i=0;i<n;i++)
+                {
+                    ans.push_back(div);
+                }
+            }
+        }
+        return ans;
+        
+    }
+};
