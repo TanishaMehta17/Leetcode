@@ -1,0 +1,13 @@
+int findTiles(int m , int n){
+
+    int x = sqrt(4*n + m);
+    if (x%2 == 0)
+        return x;
+    else {
+        int y = (x-1)*(x-1)/4;
+        if (4 * min(y,n) + m >= x*x)
+            return x;
+        else
+            return x-1;
+    }
+}
