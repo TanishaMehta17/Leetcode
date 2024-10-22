@@ -12,20 +12,20 @@ int main() {
         cin >> coins[i];
     }
 
-    // Initialize dp array with 0
+    
     vector<long long> dp(t + 1, 0);
-    dp[0] = 1;  // Base case: one way to make sum 0 (by taking no coins)
+    dp[0] = 1;  
 
-    // Fill the dp array using tabulation
-    for (int i = 1; i <= t; i++) {  // Loop through all possible target sums
-        for (int j = 0; j < n; j++) {  // Loop through the coins
+    
+    for (int i = 1; i <= t; i++) { 
+        for (int j = 0; j < n; j++) {  
             if (i - coins[j] >= 0) {
-                dp[i] = (dp[i] + dp[i - coins[j]]) % mod;  // Use the result of smaller subproblems
+                dp[i] = (dp[i] + dp[i - coins[j]]) % mod;  
             }
         }
     }
 
-    // Output the result for the target sum
+   
     cout << dp[t] % mod << endl;
 
     return 0;
