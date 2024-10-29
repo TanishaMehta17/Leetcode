@@ -10,31 +10,35 @@ vector<int> digitCal(int n) {
     return digits;
 }
 
-void solve(int num, int step, int &minStep, vector<int>& dp) {
+int solve(int num, vector<int>& dp) {
     if (num == 0) {
-        minStep = min(minStep, step);
-        return;
-    }
-    if (dp[num] != -1) {
-        return;
+        return 0;
     }
 
+    if (dp[num] != -1) {
+        return dp[num];
+    }
+
+    int minSteps = INT_MAX;
     vector<int> digits = digitCal(num); 
     for (int d : digits) {
-        if (d > 0 &&  d <= num) {
-            solve(num - d, step + 1, minStep, dp);  
+        if (d > 0 && num - d >= 0) {
+            minSteps = min(minSteps, 1 + solve(num - d, dp));
         }
     }
 
-    dp[num] = minStep; 
+    dp[num] = minSteps;
+    return dp[num];
 }
 
 int main() {
     int n;
     cin >> n;
-    int step = 0, minStep = INT_MAX;
+
     vector<int> dp(n + 1, -1);  
-    solve(n, step, minStep, dp);  
-    cout << minStep << endl;  
+    int result = solve(n, dp);
+    
+    cout << result << endl;  
+    
     return 0;
 }
